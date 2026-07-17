@@ -4,7 +4,7 @@
     <meta name="google-site-verification" content="Q-XbM2cd_CNRexjUQ9VFpJqhZxqwaHPSdarqKCTSTPw" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Date & Time Difference Calculator| UtilitySuite</title>
+    <title>Date & Time Difference Calculator | UtilitySuite</title>
     <meta name="description" content="Calculate the exact number of days, weeks, or months between two dates. Perfect for project planning and deadlines.">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -65,10 +65,9 @@
 
     <div class="top-accent"></div>
 
-    <!-- Mobile Collapsible Menu -->
     <nav class="mobile-nav">
         <details>
-            <summary>Menu / Switch Tools</summary>
+            <summary>See more tools</summary>
             <div id="mobile-tools-list"></div>
         </details>
     </nav>
@@ -81,7 +80,7 @@
     <main class="main-content">
         <div class="wrapper">
             <h1>Date Calculator</h1>
-            <!-- ... rest of your body content stays the same ... -->
+
             <div class="ad-container">
                 <script>atOptions = {'key' : 'ea9023c6230a4134ea2bb21d415f3647', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {}};</script>
                 <script src="https://www.highperformanceformat.com/ea9023c6230a4134ea2bb21d415f3647/invoke.js"></script>
@@ -116,7 +115,6 @@
 
     <script>
         function calculateDate() {
-            // ... your existing JS calculation ...
             const start = new Date(document.getElementById('start-date').value);
             const end = new Date(document.getElementById('end-date').value);
             const mode = document.getElementById('calc-mode').value;
@@ -158,7 +156,6 @@
             { name: "Loan Calculator", url: "https://zaraouilabs.github.io/loan-calculator/" }
         ];
         
-        // This populates both the sidebar and the new mobile menu
         const toolsHTML = tools.map(t => `<a href="${t.url}" class="tool-btn">${t.name}</a>`).join('');
         document.getElementById('tools-sidebar').innerHTML = toolsHTML;
         document.getElementById('mobile-tools-list').innerHTML = toolsHTML;
