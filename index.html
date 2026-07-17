@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Calculator | UtilitySuite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --bg-color: #f1f5f9; 
+            --primary: #4f46e5;
+            --text: #1e293b;
+            --border: #e2e8f0;
+            --font-family: 'Outfit', sans-serif;
+        }
+        body { margin: 0; font-family: var(--font-family); background-color: var(--bg-color); color: var(--text); display: flex; min-height: 100vh; }
+
+        .top-accent { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: var(--primary); z-index: 1000; }
+
+        .sidebar { width: 260px; background: white; border-right: 1px solid var(--border); padding: 60px 20px; flex-shrink: 0; }
+        .brand { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.25em; color: #64748b; margin-bottom: 30px; padding-left: 20px; }
+        
+        #tools-sidebar { display: flex; flex-direction: column; }
+        .tool-btn { 
+            display: block; padding: 16px 20px; margin: 2px 0; border-radius: 10px; 
+            text-decoration: none; color: #475569; font-size: 13px; font-weight: 600; 
+            transition: all 0.2s; border-bottom: 1px solid #f8fafc;
+        }
+        .tool-btn:hover { background: #f5f3ff; color: var(--primary); border-bottom-color: #e0e7ff; }
+
+        .main-content { flex: 1; padding: 60px 40px; display: flex; flex-direction: column; align-items: center; }
+        .wrapper { max-width: 800px; width: 100%; }
+
+        h1 { margin: 0 0 40px 0; color: #0f172a; font-size: 2.5rem; font-weight: 800; letter-spacing: -0.04em; }
+
+        .ad-container { display: flex; justify-content: center; margin: 20px 0; overflow: hidden; }
+        
+        .card { background: white; padding: 32px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
+        
+        .input-group { margin-bottom: 20px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 13px; color: #64748b; text-transform: uppercase; }
+        input, select { width: 100%; padding: 16px; border: 2px solid var(--border); border-radius: 12px; box-sizing: border-box; font-size: 16px; font-family: var(--font-family); outline: none; }
+        input:focus, select:focus { border-color: var(--primary); }
+        
+        button { width: 100%; padding: 18px; border: none; border-radius: 12px; background-color: var(--primary); color: white; font-weight: 700; cursor: pointer; font-size: 16px; transition: 0.2s; }
+        button:hover { background-color: #4338ca; }
+        
+        #result { margin-top: 25px; padding: 20px; background: #eef2ff; border-radius: 12px; text-align: center; font-size: 20px; font-weight: 700; color: var(--primary); display: none; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding: 30px 20px; }
+            .main-content { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-accent"></div>
+
+    <aside class="sidebar">
+        <div class="brand">UtilitySuite</div>
+        <div id="tools-sidebar"></div>
+    </aside>
+
+    <main class="main-content">
+        <div class="wrapper">
+            <h1>Date Calculator</h1>
+
+            <div class="ad-container">
+                <script>atOptions = {'key' : 'ea9023c6230a4134ea2bb21d415f3647', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {}};</script>
+                <script src="https://www.highperformanceformat.com/ea9023c6230a4134ea2bb21d415f3647/invoke.js"></script>
+            </div>
+
+            <div class="card">
+                <div class="input-group">
+                    <label>Start Date</label>
+                    <input type="date" id="start-date">
+                </div>
+                <div class="input-group">
+                    <label>End Date</label>
+                    <input type="date" id="end-date">
+                </div>
+                <div class="input-group">
+                    <label>Calculation Mode</label>
+                    <select id="calc-mode">
+                        <option value="total">Total Days</option>
+                        <option value="business">Business Days (Mon-Fri)</option>
+                    </select>
+                </div>
+                <button onclick="calculateDate()">CALCULATE</button>
+                <div id="result"></div>
+            </div>
+
+            <div class="ad-container">
+                <script>atOptions = {'key' : '7cf39fb102b8e5ac06d9ab8ec745e58c', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {}};</script>
+                <script src="https://www.highperformanceformat.com/7cf39fb102b8e5ac06d9ab8ec745e58c/invoke.js"></script>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function calculateDate() {
+            const start = new Date(document.getElementById('start-date').value);
+            const end = new Date(document.getElementById('end-date').value);
+            const mode = document.getElementById('calc-mode').value;
+            const resultDiv = document.getElementById('result');
+
+            if (isNaN(start) || isNaN(end)) {
+                alert("Please select both dates");
+                return;
+            }
+
+            let count = 0;
+            let cur = new Date(start);
+
+            if (mode === 'total') {
+                const diffTime = Math.abs(end - start);
+                count = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            } else {
+                while (cur <= end) {
+                    const day = cur.getDay();
+                    if (day !== 0 && day !== 6) count++;
+                    cur.setDate(cur.getDate() + 1);
+                }
+            }
+
+            resultDiv.style.display = 'block';
+            resultDiv.innerText = `${count} ${mode === 'total' ? 'Days' : 'Business Days'}`;
+        }
+
+        const tools = [
+            { name: "QR Generator", url: "https://zaraouilabs.github.io/QR-Code-Generator/" },
+            { name: "Image Compressor", url: "https://zaraouilabs.github.io/Image-Compressor/" },
+            { name: "Case Converter", url: "https://zaraouilabs.github.io/case-converter/" },
+            { name: "HEIC Converter", url: "https://zaraouilabs.github.io/HEIC-to-JPEG-converter/" },
+            { name: "WebP Converter", url: "https://zaraouilabs.github.io/webp-to-jpg-convertor/" },
+            { name: "JSON Formatter", url: "https://zaraouilabs.github.io/JSON-formatter/" },
+            { name: "Word Counter", url: "https://zaraouilabs.github.io/wordcount-pro/" },
+            { name: "Percentage Calc", url: "https://zaraouilabs.github.io/percentage_counter/" },
+            { name: "Base64 Converter", url: "https://zaraouilabs.github.io/Base64_convertor/" },
+            { name: "Password Generator", url: "https://zaraouilabs.github.io/Password_Generator/" },
+            { name: "Loan Calculator", url: "https://zaraouilabs.github.io/loan-calculator/" }
+        ];
+        document.getElementById('tools-sidebar').innerHTML = tools.map(t => `<a href="${t.url}" class="tool-btn">${t.name}</a>`).join('');
+    </script>
+    <script src="https://pl30403648.effectivecpmnetwork.com/8d/6e/16/8d6e16cf626599011a4b1d03060dc5cf.js"></script>
+</body>
+</html>
